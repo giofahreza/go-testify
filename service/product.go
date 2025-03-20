@@ -21,3 +21,12 @@ func (s ProductService) GetProducts() ([]entity.Product, error) {
 
 	return product, nil
 }
+
+func (s ProductService) GetProductByID(ID int) (entity.Product, error) {
+	product, err := s.ProductRepository.FindByID(ID)
+	if err != nil {
+		return entity.Product{}, err
+	}
+
+	return product, nil
+}

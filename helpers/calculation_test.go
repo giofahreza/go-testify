@@ -130,3 +130,20 @@ func TestTable2Sum(t *testing.T) {
 	}
 	fmt.Println("Test Table 2 Sum Execution has been skipped")
 }
+
+// Positive Case : Login success
+func TestLoginSuccess(t *testing.T) {
+	result, err := Login("admin", "admin")
+	assert.Nil(t, err)
+	assert.True(t, result)
+}
+
+// Negative Case : Login failed
+func TestLoginFailed(t *testing.T) {
+	result, err := Login("admin", "admin1")
+	if err == nil {
+		t.Fail()
+	}
+
+	assert.False(t, result)
+}
