@@ -1,0 +1,26 @@
+package service
+
+import (
+	"go-testify/entity"
+	"go-testify/repository"
+	"testing"
+
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/mock"
+)
+
+var productRepo = &repository.ProductRepositoryMock{Mock: mock.Mock{}}
+var productService = NewProductService(productRepo)
+
+func TestGetProducts(t *testing.T) {
+	product := []entity.Product{
+		{ID: 1, Name: "Laptop", Price: 1000},
+		{ID: 2, Name: "Mouse", Price: 10},
+	}
+
+	productRepo.On("FindAll").Return(product, nil)
+
+	result, err := productService.GetProducts()
+	assert.Nil(t, err)
+	assert.Equal(t, product, result)
+}
